@@ -16,14 +16,51 @@ const linksPackage = linksDescriptor.linksPackage;
 const { Link, link, linkId } = linksPackage;
 // console.log(linksPackage);
 
-function createLink(
-  call: ServerUnaryCall<typeof link, typeof linkId>,
-  callback: sendUnaryData<typeof linkId>
-) {
-  console.log(call.request);
-  const linkId = 1
-  callback(null, {linkId})
+
+export type Link = {
+  url: string;
+  key: string;
+  userId: string;
+  createdAt: string;
+};
+
+export interface ILinkPort {
+  saveLink(link: Link): Promise<string>;
 }
+export interface IAPIPort {
+  createLink(link: Link): Promise<string>;
+}
+
+class LinkDataSource implements ILinkPort {
+  async saveLink(link: Link): Promise<string> {
+    return link.userId;
+  }
+}
+
+class Application implements IAPIPort {
+  dataSource: ILinkPort
+  constructor(dataSource: ILinkPort) {
+    this.dataSource = dataSource
+  }
+  async createLink(link: Link): Promise<string> {
+    return await this.dataSource.saveLink(link)
+  }
+
+}
+
+const linkAdapter = new LinkDataSource()
+const app = new Application(linkAdapter)
+
+const createLink = (app: IAPIPort) => {
+  return async (
+    call: ServerUnaryCall<typeof link, typeof linkId>,
+    callback: sendUnaryData<typeof linkId>
+  ) => {
+    console.log(call.request, app);
+    const userId = await app.createLink(call.request);
+    callback(null, { linkId: userId});
+  };
+};
 
 const server = new grpc.Server();
 
@@ -31,7 +68,7 @@ const reflection = new ReflectionService(packageDefinition);
 reflection.addToServer(server);
 
 server.addService(Link.service, {
-  createLink,
+  createLink: createLink(app),
 });
 
 server.bindAsync(
