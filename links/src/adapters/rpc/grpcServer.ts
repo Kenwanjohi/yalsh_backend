@@ -11,8 +11,7 @@ import { LinksService } from "yalsh_protos/dist/links/links"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ProtoFilePath = path.join(__dirname, '../../../node_modules/yalsh_protos/dist/links.proto');
-
-const packageDefinition = protoLoader.loadSync(ProtoFilePath);
+const packageDefinition = protoLoader.loadSync(ProtoFilePath)
 
 export class GrpcServer {
   app: IAPIPort;

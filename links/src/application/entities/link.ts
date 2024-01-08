@@ -1,16 +1,18 @@
-import { CreateLinkRequest } from "yalsh_protos/dist/links/links"
+import { CreateLinkRequest } from "yalsh_protos/dist/links/links";
 
 export type LinkItem = {
   url: string;
   key: string;
   user_id: number;
-  created_at: number;
+  expires_at: number;
 };
 
 export function newLink(link: CreateLinkRequest): LinkItem {
+  const { key, url, userId, expiresAt } = link;
   return {
-    ...link,
-    user_id: link.userId,
-    created_at: link.createdAt
-  }
+    key,
+    url,
+    user_id: userId,
+    expires_at: expiresAt,
+  };
 }
