@@ -4,6 +4,9 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": "20.*"
+  },
   "scripts": {
     "start:dev": "node --env-file=.env --import=tsx --watch ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
