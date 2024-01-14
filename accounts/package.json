@@ -1,0 +1,31 @@
+{
+  "name": "accounts",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": "20.*"
+  },
+  "scripts": {
+    "start:dev": "node --env-file=.env --import=tsx --watch ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.9.13",
+    "@grpc/proto-loader": "^0.7.10",
+    "@grpc/reflection": "^1.0.1",
+    "postgres": "^3.4.3",
+    "tsx": "^4.7.0"
+  }
+}
