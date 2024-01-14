@@ -1,5 +1,6 @@
 import { IAPIPort } from "../../ports/api";
 import { IDatabasePort } from "../../ports/db";
+import { hashPassword } from "../../utils";
 import { User, ProfileUser } from "../entities/account";
 
 export class Application implements IAPIPort {
@@ -7,7 +8,8 @@ export class Application implements IAPIPort {
   constructor(dataSource: IDatabasePort) {
     this.dataSource = dataSource;
   }
-  createUser(user: User): Promise<ProfileUser> {
-    return this.dataSource.saveUser(user);
+  async createUser(user: User): Promise<ProfileUser> {
+    const password = await hashPassword(user.password);
+    return await this.dataSource.saveUser({ ...user, password });
   }
 }

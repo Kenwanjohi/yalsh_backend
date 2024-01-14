@@ -1,10 +1,8 @@
 import { ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
-
 import {
   CreateUserRequest,
   CreateUserResponse,
 } from "yalsh_protos/dist/accounts/accounts";
-
 import { IAPIPort } from "../../ports/api";
 
 export const createUser = (app: IAPIPort) => {
