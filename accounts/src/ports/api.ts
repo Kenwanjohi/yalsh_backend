@@ -1,5 +1,6 @@
-import { ProfileUser, User } from "../application/entities/account";
+import { ProfileUser, User, UserUpdate } from "../application/entities/account";
 
 export interface IAPIPort {
   createUser(user: User): Promise<ProfileUser>;
+  updateUser(user: UserUpdate): Promise<boolean>;
 }
