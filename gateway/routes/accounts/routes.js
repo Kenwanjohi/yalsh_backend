@@ -16,16 +16,17 @@ const client = new AccountsClient(
   "localhost:50052",
   grpc.credentials.createInsecure()
 );
+
 module.exports = fp(
   async function accounts(fastify, opts) {
     // Register new user
     fastify.post(
-      "/register",
+      "/accounts",
       {
         schema: {
           body: {
-            title: "User",
-            description: "User details",
+            title: "New user",
+            description: "New user details",
             type: "object",
             properties: {
               username: { description: "username", type: "string" },
@@ -49,6 +50,71 @@ module.exports = fp(
             reply.code(201).send({ registered: true });
           }
         });
+      }
+    );
+
+    fastify.patch(
+      "/accounts/:id",
+      {
+        onRequest: [fastify.authenticate],
+        schema: {
+          params: {
+            type: "object",
+            properties: {
+              id: { description: "users id", type: "string" },
+            },
+          },
+          body: {
+            title: "Update user",
+            description: "Update user details",
+            type: "object",
+            properties: {
+              username: { description: "username", type: "string" },
+              email: { description: "email", type: "string", format: "email" },
+              new_password: { description: "new password", type: "string" },
+              password: { description: "password", type: "string" },
+            },
+            additionalProperties: false,
+            dependencies: {
+              new_password: ["password"],
+            },
+          },
+        },
+      },
+      function updateHandler(request, reply) {
+        if (request.user.id !== request.params) {
+          reply.unauthorized();
+          return;
+        }
+        return { ok: true };
+      }
+    );
+
+    fastify.delete(
+      "/accounts/:id",
+      {
+        onRequest: [fastify.authenticate],
+        schema: {
+          params: {
+            type: "object",
+            properties: {
+              id: { description: "users id", type: "string" },
+            },
+          },
+        },
+      },
+      function deleteUserHandler(request, reply) {
+        try {
+          console.log(request.params);
+          if (request.user.id !== request.params) {
+            reply.unauthorized();
+            return;
+          }
+          reply.send({ message: "User deleted successfully" });
+        } catch (err) {
+          this.log.error(err);
+          reply.internalServerError();
+        }
       }
     );
   },

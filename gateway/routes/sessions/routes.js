@@ -31,7 +31,7 @@ module.exports = fp(
 
     // Refresh token
     fastify.post("/refresh", {
-      onRequest: fastify.authenticate,
+      onRequest: [fastify.authenticate],
       handler: async function refreshTokenHandler(request, reply) {
         const access_token = await request.createToken({ expiresIn: "1h" });
         return { access_token };
