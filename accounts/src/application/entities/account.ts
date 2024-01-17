@@ -12,6 +12,7 @@ export type ProfileUser = {
 };
 
 export type UserUpdate = {
+  user_id: number;
   username?: string;
   email?: string;
   new_password?: string;
@@ -19,14 +20,6 @@ export type UserUpdate = {
 };
 
 export function userUpdate(user: UpdateUserRequest): UserUpdate {
-  const updatedUser = {};
-  
-  for (const key in user) {
-    const value = user[key];
-    if (value) {
-      updatedUser[key] = value;
-    }
-  }
-
-  return updatedUser;
+  const { userId: user_id, newPassword: new_password, ...rest } = user;
+  return { user_id, new_password, ...rest };
 }
