@@ -61,8 +61,9 @@ module.exports = fp(
           params: {
             type: "object",
             properties: {
-              id: { description: "users id", type: "string" },
+              id: { description: "users id", type: "number" },
             },
+            required: ["id"],
           },
           body: {
             title: "Update user",
@@ -71,22 +72,34 @@ module.exports = fp(
             properties: {
               username: { description: "username", type: "string" },
               email: { description: "email", type: "string", format: "email" },
-              new_password: { description: "new password", type: "string" },
+              newPassword: { description: "new password", type: "string" },
               password: { description: "password", type: "string" },
             },
-            additionalProperties: false,
             dependencies: {
-              new_password: ["password"],
+              newPassword: ["password"],
             },
+            additionalProperties: false,
           },
         },
       },
       function updateHandler(request, reply) {
-        if (request.user.id !== request.params) {
+        if (request.user.id !== request.params.id) {
           reply.unauthorized();
           return;
         }
-        return { ok: true };
+        const payloadUpdateUser = { userId: request.user.id, ...request.body };
+        // gRPC call UpdateUser
+        client.updateUser(payloadUpdateUser, (err, res) => {
+          if (err) {
+            reply.internalServerError();
+          } else {
+            if (res?.ok) {
+              reply.code(200).send({ updated: true });
+            } else {
+              reply.code(200).send({ updated: false });
+            }
+          }
+        });
       }
     );
 
@@ -98,8 +111,9 @@ module.exports = fp(
           params: {
             type: "object",
             properties: {
-              id: { description: "users id", type: "string" },
+              id: { description: "users id", type: "number" },
             },
+            additionalProperties: false,
           },
         },
       },
@@ -110,9 +124,17 @@ module.exports = fp(
             reply.unauthorized();
             return;
           }
-          reply.send({ message: "User deleted successfully" });
+          // gRPC call UpdateUser
+          client.deleteUser(request.user.id, (err, res) => {
+            if (err) {
+              this.log.error(err);
+              reply.internalServerError();
+            } else {
+              console.log(res);
+              reply.code(200).send({ deleted: true });
+            }
+          });
         } catch (err) {
-          this.log.error(err);
           reply.internalServerError();
         }
       }
