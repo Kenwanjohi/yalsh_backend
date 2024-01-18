@@ -61,7 +61,7 @@ module.exports = fp(
           params: {
             type: "object",
             properties: {
-              id: { description: "users id", type: "number" },
+              id: { description: "user's id", type: "number" },
             },
             required: ["id"],
           },
@@ -111,32 +111,30 @@ module.exports = fp(
           params: {
             type: "object",
             properties: {
-              id: { description: "users id", type: "number" },
+              id: { description: "user's id", type: "number" },
             },
+            required: ["id"],
             additionalProperties: false,
           },
         },
       },
       function deleteUserHandler(request, reply) {
-        try {
-          console.log(request.params);
-          if (request.user.id !== request.params) {
-            reply.unauthorized();
-            return;
-          }
-          // gRPC call UpdateUser
-          client.deleteUser(request.user.id, (err, res) => {
-            if (err) {
-              this.log.error(err);
-              reply.internalServerError();
-            } else {
-              console.log(res);
-              reply.code(200).send({ deleted: true });
-            }
-          });
-        } catch (err) {
-          reply.internalServerError();
+        if (request.user.id !== request.params.id) {
+          reply.unauthorized();
+          return;
         }
+        // gRPC call DeleteUser
+        client.deleteUser(request.user.id, (err, res) => {
+          if (err) {
+            reply.internalServerError();
+          } else {
+            if (res?.ok) {
+              reply.code(200).send({ deleted: true });
+            } else {
+              reply.code(200).send({ deleted: false });
+            }
+          }
+        });
       }
     );
   },
