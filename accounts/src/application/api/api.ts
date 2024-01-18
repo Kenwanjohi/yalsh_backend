@@ -39,4 +39,8 @@ export class Application implements IAPIPort {
     });
     return updated;
   }
+
+  async deleteUser(id: number): Promise<boolean> {
+    return await this.dataSource.deleteUser(id);
+  }
 }

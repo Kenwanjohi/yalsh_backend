@@ -69,4 +69,13 @@ export class AccountsDataSource implements IDatabasePort {
       return false;
     }
   }
+
+  async deleteUser(id: number): Promise<boolean> {
+    try {
+      await this.sql`DELETE FROM users WHERE user_id =${id}`;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }

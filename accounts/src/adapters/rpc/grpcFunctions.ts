@@ -2,6 +2,8 @@ import { ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
 import {
   CreateUserRequest,
   CreateUserResponse,
+  DeleteUserRequest,
+  DeleteUserResponse,
   UpdateUserRequest,
   UpdateUserResponse,
 } from "yalsh_protos/dist/accounts/accounts";
@@ -25,6 +27,16 @@ export const updateUser = (app: IAPIPort) => {
   ) => {
     const user = userUpdate(call.request);
     const ok = await app.updateUser(user);
+    callback(null, { ok });
+  };
+};
+
+export const deleteUser = (app: IAPIPort) => {
+  return async (
+    call: ServerUnaryCall<DeleteUserRequest, DeleteUserResponse>,
+    callback: sendUnaryData<DeleteUserResponse>
+  ) => {
+    const ok = await app.deleteUser(call.request.userId);
     callback(null, { ok });
   };
 };

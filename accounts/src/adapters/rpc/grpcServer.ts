@@ -4,7 +4,7 @@ import { Server, ServerCredentials } from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 import { ReflectionService } from "@grpc/reflection";
 
-import { createUser, updateUser } from "./grpcFunctions";
+import { createUser, deleteUser, updateUser } from "./grpcFunctions";
 import { IAPIPort } from "../../ports/api";
 import { AccountsService } from "yalsh_protos/dist/accounts/accounts";
 
@@ -32,6 +32,7 @@ export class GrpcServer {
     server.addService(AccountsService, {
       createUser: createUser(this.app),
       updateUser: updateUser(this.app),
+      deleteUser: deleteUser(this.app),
     });
     server.bindAsync(
       this.address,
