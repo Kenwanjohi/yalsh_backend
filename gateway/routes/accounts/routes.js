@@ -124,7 +124,8 @@ module.exports = fp(
           return;
         }
         // gRPC call DeleteUser
-        client.deleteUser(request.user.id, (err, res) => {
+        const payloadUpdateUser = { userId: request.user.id };
+        client.deleteUser(payloadUpdateUser, (err, res) => {
           if (err) {
             reply.internalServerError();
           } else {
