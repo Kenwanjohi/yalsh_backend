@@ -1,8 +1,10 @@
+import { AuthUserRequest } from "yalsh_protos/dist/accounts/accounts";
 import { IAPIPort } from "../../ports/api";
 import { IDatabasePort } from "../../ports/db";
 import { hashPassword } from "../../utils";
 import { User, ProfileUser, UserUpdate } from "../entities/account";
 import bcrypt from "bcrypt";
+import { Errors } from "../../errors";
 export class Application implements IAPIPort {
   dataSource: IDatabasePort;
   constructor(dataSource: IDatabasePort) {
@@ -19,7 +21,7 @@ export class Application implements IAPIPort {
 
     let newPassword;
     if (new_password && password) {
-      const currentUser = await this.dataSource.getUser(user_id);
+      const currentUser = await this.dataSource.getUserById(user_id);
       if (!currentUser) return false;
 
       const isPasswordCorrect = await bcrypt.compare(
@@ -42,5 +44,21 @@ export class Application implements IAPIPort {
 
   async deleteUser(id: number): Promise<boolean> {
     return await this.dataSource.deleteUser(id);
+  }
+
+  async authenticateUser(
+    user: AuthUserRequest
+  ): Promise<{ userId: number; username: string }> {
+    try {
+      const userAccount = await this.dataSource.getUser(user?.email);
+      if (userAccount) {
+        const { user_id, username, password } = userAccount;
+        const isPasswordCorrect = await bcrypt.compare(user.password, password);
+        if (isPasswordCorrect) return { userId: user_id, username };
+      }
+      throw new Error(Errors.IncorrectCredentials);
+    } catch (error) {
+      throw error;
+    }
   }
 }

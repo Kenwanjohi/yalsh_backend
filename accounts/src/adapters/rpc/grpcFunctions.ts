@@ -1,5 +1,8 @@
-import { ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
+import grpc, { ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
+
 import {
+  AuthUserRequest,
+  AuthUserResponse,
   CreateUserRequest,
   CreateUserResponse,
   DeleteUserRequest,
@@ -9,6 +12,7 @@ import {
 } from "yalsh_protos/dist/accounts/accounts";
 import { IAPIPort } from "../../ports/api";
 import { userUpdate } from "../../application/entities/account";
+import { Errors } from "../../errors";
 
 export const createUser = (app: IAPIPort) => {
   return async (
@@ -38,5 +42,35 @@ export const deleteUser = (app: IAPIPort) => {
   ) => {
     const ok = await app.deleteUser(call.request.userId);
     callback(null, { ok });
+  };
+};
+
+export const authenticateUser = (app: IAPIPort) => {
+  return async (
+    call: ServerUnaryCall<AuthUserRequest, AuthUserResponse>,
+    callback: sendUnaryData<AuthUserResponse>
+  ) => {
+    try {
+      const user = await app.authenticateUser(call.request);
+      callback(null, user);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === Errors.IncorrectCredentials) {
+          callback(
+            { code: grpc.status.UNAUTHENTICATED, details: error.message },
+            {}
+          );
+          return;
+        }
+        callback(
+          { code: grpc.status.UNKNOWN, details: "Unexpected error occurred" },
+          {}
+        );
+      }
+      callback(
+        { code: grpc.status.UNKNOWN, details: "Unexpected error occurred" },
+        {}
+      );
+    }
   };
 };

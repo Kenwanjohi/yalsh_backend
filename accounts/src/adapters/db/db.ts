@@ -26,10 +26,27 @@ export class AccountsDataSource implements IDatabasePort {
     return newUser[0];
   }
 
-  async getUser(user_id: number): Promise<User> {
+  async getUserById(user_id: number): Promise<User> {
     const user = await this.sql<
       User[]
     >`SELECT username, email, password FROM users WHERE user_id=${user_id}`;
+    return user[0];
+  }
+
+  async getUser(email: string): Promise<{
+    user_id: number;
+    username: string;
+    email: string;
+    password: string;
+  }> {
+    const user = await this.sql<
+      {
+        user_id: number;
+        username: string;
+        email: string;
+        password: string;
+      }[]
+    >`SELECT user_id, username, email, password FROM users WHERE email=${email}`;
     return user[0];
   }
 
