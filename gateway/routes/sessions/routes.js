@@ -19,13 +19,21 @@ module.exports = fp(
           },
         },
       },
-      async function loginHandler(request, reply) {
-        console.log(request.body);
+      function loginHandler(request, reply) {
+        const client = fastify.rpc;
+        const payload = request.body;
         // gRPC call AuthenticateUser
-        request.user = { id: 1, username: "username" };
-        const access_token = await request.createToken({ expiresIn: "1h" });
-        const refresh_token = await request.createToken({ expiresIn: "1d" });
-        return { access_token, refresh_token };
+        client.authenticateUser(payload, async (err, res) => {
+          if (err) {
+            reply.status(401).send({ error: err.details });
+            return;
+          }
+          const { userId, username } = res;
+          request.user = { id: userId, username };
+          const access_token = await request.createToken({ expiresIn: "1h" });
+          const refresh_token = await request.createToken({ expiresIn: "1d" });
+          reply.status(200).send({ access_token, refresh_token });
+        });
       }
     );
 
