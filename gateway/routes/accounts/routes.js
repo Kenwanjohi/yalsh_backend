@@ -1,24 +1,8 @@
 const fp = require("fastify-plugin");
-const grpc = require("@grpc/grpc-js");
-const protoLoader = require("@grpc/proto-loader");
-const path = require("node:path");
-
-const ProtoFilePath = path.join(
-  __dirname,
-  "../../node_modules/yalsh_protos/dist/accounts.proto"
-);
-const packageDefinition = protoLoader.loadSync(ProtoFilePath);
-
-const { Accounts: AccountsClient } =
-  grpc.loadPackageDefinition(packageDefinition).accountsPackage;
-
-const client = new AccountsClient(
-  "localhost:50052",
-  grpc.credentials.createInsecure()
-);
 
 module.exports = fp(
   async function accounts(fastify, opts) {
+    const client = fastify.rpc;
     // Register new user
     fastify.post(
       "/accounts",
