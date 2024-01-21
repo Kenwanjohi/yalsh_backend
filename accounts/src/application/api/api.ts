@@ -12,8 +12,12 @@ export class Application implements IAPIPort {
   }
 
   async createUser(user: User): Promise<ProfileUser> {
-    const password = await hashPassword(user.password);
-    return await this.dataSource.saveUser({ ...user, password });
+    try {
+      const password = await hashPassword(user.password);
+      return await this.dataSource.saveUser({ ...user, password });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updateUser(user: UserUpdate): Promise<boolean> {

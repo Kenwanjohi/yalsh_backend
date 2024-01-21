@@ -19,8 +19,15 @@ export const createUser = (app: IAPIPort) => {
     call: ServerUnaryCall<CreateUserRequest, CreateUserResponse>,
     callback: sendUnaryData<CreateUserResponse>
   ) => {
-    const { user_id, username } = await app.createUser(call.request);
-    callback(null, { userId: user_id, username });
+    try {
+      const { user_id, username } = await app.createUser(call.request);
+      callback(null, { userId: user_id, username });
+    } catch (error) {
+      callback({
+        code: grpc.status.UNKNOWN,
+        details: "Unexpected error occurred",
+      });
+    }
   };
 };
 

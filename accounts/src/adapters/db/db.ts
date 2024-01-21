@@ -18,12 +18,16 @@ export class AccountsDataSource implements IDatabasePort {
   }
 
   async saveUser(user: User): Promise<ProfileUser> {
-    const newUser = await this.sql<ProfileUser[]>`
-    INSERT INTO users
-    ${this.sql(user)}
-    returning user_id, username
-    `;
-    return newUser[0];
+    try {
+      const newUser = await this.sql<ProfileUser[]>`
+      INSERT INTO users
+      ${this.sql(user)}
+      returning user_id, username
+      `;
+      return newUser[0];
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getUserById(user_id: number): Promise<User> {
