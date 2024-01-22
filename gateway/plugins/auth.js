@@ -10,6 +10,9 @@ module.exports = fp(
     // Configure jwt plugin
     fastify.register(jwt, {
       secret: process.env.JWT_SECRET,
+      cookie: {
+        cookieName: "accessToken",
+      },
       trusted: validateToken,
     });
 
@@ -17,6 +20,15 @@ module.exports = fp(
     fastify.decorate("authenticate", async function (request, reply) {
       try {
         await request.jwtVerify();
+      } catch (error) {
+        reply.send(error);
+      }
+    });
+
+    // verify jwt, called onRequest for refreshToken
+    fastify.decorate("authenticateOnlyCookie", async function (request, reply) {
+      try {
+        await request.jwtVerify({ onlyCookie: true });
       } catch (error) {
         reply.send(error);
       }
