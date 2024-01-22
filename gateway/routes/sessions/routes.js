@@ -3,7 +3,7 @@ module.exports = fp(
   async function sessions(fastify, opts) {
     // Login
     fastify.post(
-      "/login",
+      "/session",
       {
         schema: {
           body: {
@@ -30,19 +30,31 @@ module.exports = fp(
           }
           const { userId, username } = res;
           request.user = { id: userId, username };
-          const access_token = await request.createToken({ expiresIn: "1h" });
-          const refresh_token = await request.createToken({ expiresIn: "1d" });
-          reply.status(200).send({ access_token, refresh_token });
+          const accessToken = await request.createToken({ expiresIn: "1d" });
+          const expirationDate = new Date();
+          expirationDate.setDate(expirationDate.getDate() + 1);
+
+          reply
+            .setCookie("accessToken", accessToken, {
+              domain: "localhost",
+              path: "/",
+              secure: false,
+              httpOnly: true,
+              expires: expirationDate,
+              sameSite: "Strict",
+            })
+            .code(200)
+            .send({ authenticated: true });
         });
       }
     );
 
     // Refresh token
-    fastify.post("/refresh", {
-      onRequest: [fastify.authenticate],
+    fastify.get("/refresh", {
+      onRequest: [fastify.authenticateOnlyCookie],
       handler: async function refreshTokenHandler(request, reply) {
-        const access_token = await request.createToken({ expiresIn: "1h" });
-        return { access_token };
+        const accessToken = await request.createToken({ expiresIn: "1h" });
+        return { accessToken };
       },
     });
 
