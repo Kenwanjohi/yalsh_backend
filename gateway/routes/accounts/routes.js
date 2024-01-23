@@ -50,6 +50,21 @@ module.exports = fp(
       }
     );
 
+    fastify.get(
+      "/account",
+      { onRequest: [fastify.authenticate] },
+      function getAccountHandler(request, reply) {
+        // gRPC call GetUserProfile
+        client.getUserProfile({ userId: request.user.id }, (err, res) => {
+          if (err) {
+            reply.internalServerError();
+          } else {
+            reply.code(200).send(res);
+          }
+        });
+      }
+    );
+
     fastify.patch(
       "/accounts/:id",
       {
