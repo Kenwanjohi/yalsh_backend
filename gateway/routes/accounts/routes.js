@@ -24,14 +24,27 @@ module.exports = fp(
       },
       function registerHandler(request, reply) {
         // gRPC call CreateUser
-        client.createUser(request.body, (err, res) => {
+        client.createUser(request.body, async (err, res) => {
           if (err) {
-            this.log.error(err);
             reply.status(500).send({ registered: false });
           } else {
-            // TODO: Optionally create access_token??
-            console.log(res);
-            reply.code(201).send({ registered: true });
+            const { userId, username } = res;
+            request.user = { id: userId, username };
+            const accessToken = await request.createToken({ expiresIn: "1d" });
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 1);
+
+            reply
+              .setCookie("accessToken", accessToken, {
+                domain: "localhost",
+                path: "/",
+                secure: false,
+                httpOnly: true,
+                expires: expirationDate,
+                sameSite: "Strict",
+              })
+              .code(200)
+              .send({ registered: true });
           }
         });
       }
