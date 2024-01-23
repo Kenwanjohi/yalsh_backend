@@ -20,6 +20,13 @@ export class Application implements IAPIPort {
     }
   }
 
+  async getUserProfile(
+    user_id: number
+  ): Promise<{ username: string; email: string }> {
+    const { username, email } = await this.dataSource.getUserById(user_id);
+    return { username, email };
+  }
+
   async updateUser(user: UserUpdate): Promise<boolean> {
     const { user_id, new_password, password } = user || {};
 

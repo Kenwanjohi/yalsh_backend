@@ -8,4 +8,5 @@ export interface IAPIPort {
   authenticateUser(
     user: AuthUserRequest
   ): Promise<{ userId: number; username: string }>;
+  getUserProfile(id: number): Promise<{ username: string; email: string }>;
 }

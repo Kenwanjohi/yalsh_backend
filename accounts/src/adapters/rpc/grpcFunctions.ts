@@ -5,6 +5,8 @@ import {
   AuthUserResponse,
   CreateUserRequest,
   CreateUserResponse,
+  GetUserProfileRequest,
+  GetUserProfileResponse,
   DeleteUserRequest,
   DeleteUserResponse,
   UpdateUserRequest,
@@ -22,6 +24,23 @@ export const createUser = (app: IAPIPort) => {
     try {
       const { user_id, username } = await app.createUser(call.request);
       callback(null, { userId: user_id, username });
+    } catch (error) {
+      callback({
+        code: grpc.status.UNKNOWN,
+        details: "Unexpected error occurred",
+      });
+    }
+  };
+};
+
+export const getUserProfile = (app: IAPIPort) => {
+  return async (
+    call: ServerUnaryCall<GetUserProfileRequest, GetUserProfileResponse>,
+    callback: sendUnaryData<GetUserProfileResponse>
+  ) => {
+    try {
+      const user = await app.getUserProfile(call.request.userId);
+      callback(null, user);
     } catch (error) {
       callback({
         code: grpc.status.UNKNOWN,

@@ -8,6 +8,7 @@ import {
   authenticateUser,
   createUser,
   deleteUser,
+  getUserProfile,
   updateUser,
 } from "./grpcFunctions";
 import { IAPIPort } from "../../ports/api";
@@ -36,6 +37,7 @@ export class GrpcServer {
     reflection.addToServer(server);
     server.addService(AccountsService, {
       createUser: createUser(this.app),
+      getUserProfile: getUserProfile(this.app),
       updateUser: updateUser(this.app),
       deleteUser: deleteUser(this.app),
       authenticateUser: authenticateUser(this.app),
