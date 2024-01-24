@@ -66,7 +66,7 @@ module.exports = fp(
       },
       async function logoutHandler(request, reply) {
         request.blackListToken();
-        reply.code(204);
+        reply.clearCookie("accessToken").code(204);
       }
     );
   },
