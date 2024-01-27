@@ -19,20 +19,11 @@ module.exports = fp(
     // verify jwt, called onRequest
     fastify.decorate("authenticate", async function (request, reply) {
       try {
-        await request.jwtVerify();
-      } catch (error) {
-        reply.send(error);
-      }
-    });
-
-    // verify jwt, called onRequest for refreshToken
-    fastify.decorate("authenticateOnlyCookie", async function (request, reply) {
-      try {
         await request.jwtVerify({ onlyCookie: true });
       } catch (error) {
         reply.send(error);
       }
-    });
+    });  
 
     // create jwt token
     fastify.decorateRequest("createToken", async function ({ expiresIn }) {

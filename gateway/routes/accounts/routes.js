@@ -2,7 +2,7 @@ const fp = require("fastify-plugin");
 
 module.exports = fp(
   async function accounts(fastify, opts) {
-    const client = fastify.rpc;
+    const client = fastify.rpc.accountsClient;
     // Register new user
     fastify.post(
       "/accounts",
