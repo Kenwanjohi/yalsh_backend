@@ -3,7 +3,6 @@ const fp = require("fastify-plugin");
 module.exports = fp(
   async function links(fastify, opts) {
     const client = fastify.rpc.linksClient;
-    console.log(fastify.rpc);
     fastify.post(
       "/links",
       {
@@ -39,8 +38,13 @@ module.exports = fp(
       "/links",
       { onRequest: [fastify.authenticate] },
       function getLinks(request, reply) {
-        console.log(request);
-        reply.status(200).send("done");
+        client.getLinks({ userId: request.user.id }, (err, res) => {
+          if (err) {
+            fastify.log.error(err);
+          } else {
+            reply.status(200).send(res);
+          }
+        });
       }
     );
   },

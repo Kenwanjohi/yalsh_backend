@@ -18,7 +18,7 @@ module.exports = fp(async function (fastify, opts) {
     const accountsPackageDefinition = protoLoader.loadSync(
       AccountsProtoFilePath
     );
-    const linksPackageDefinition = protoLoader.loadSync(LinksProtoFilePath);
+    const linksPackageDefinition = protoLoader.loadSync(LinksProtoFilePath, {defaults: true});
 
     const { Accounts: AccountsClient } = grpc.loadPackageDefinition(
       accountsPackageDefinition

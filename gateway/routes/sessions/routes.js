@@ -20,7 +20,7 @@ module.exports = fp(
         },
       },
       function loginHandler(request, reply) {
-        const client = fastify.rpc;
+        const client = fastify.rpc.accountsClient;
         const payload = request.body;
         // gRPC call AuthenticateUser
         client.authenticateUser(payload, async (err, res) => {
