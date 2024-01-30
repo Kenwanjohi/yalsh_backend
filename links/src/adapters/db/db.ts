@@ -1,6 +1,6 @@
 import postgres from "postgres";
-import { LinkItem } from "../../application/entities/link";
-import { GetLinks, IDatabasePort } from "../../ports/db";
+import { LinkItem } from "../../application/entities/link.js";
+import { GetLinks, IDatabasePort } from "../../ports/db.js";
 const sql = postgres(`${process.env.PG_CONN}`);
 export class LinkDataSource implements IDatabasePort {
   async saveLink(link: LinkItem): Promise<number> {

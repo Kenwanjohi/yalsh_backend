@@ -1,6 +1,6 @@
-import { LinkDataSource } from "./adapters/db/db";
-import { GrpcServer } from "./adapters/rpc/grpcServer";
-import { Application } from "./application/api/api";
+import { LinkDataSource } from "./adapters/db/db.js";
+import { GrpcServer } from "./adapters/rpc/grpcServer.js";
+import { Application } from "./application/api/api.js";
 
 const HOST = process.env.HOST || "0.0.0.0";
 const PORT = Number(process.env.PORT) || 50051;

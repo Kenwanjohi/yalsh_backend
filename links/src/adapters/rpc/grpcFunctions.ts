@@ -5,9 +5,9 @@ import {
   CreateLinkResponse,
   GetLinksRequest,
   GetLinksResponse,
-} from "yalsh_protos/links/links";
-import { IAPIPort } from "../../ports/api";
-import { newLink } from "../../application/entities/link";
+} from "yalsh_protos/links/links.js";
+import { IAPIPort } from "../../ports/api.js";
+import { newLink } from "../../application/entities/link.js";
 
 export const createLink = (app: IAPIPort) => {
   return async (

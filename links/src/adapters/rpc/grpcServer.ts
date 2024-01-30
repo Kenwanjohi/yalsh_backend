@@ -4,9 +4,9 @@ import { Server, ServerCredentials } from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 import { ReflectionService } from "@grpc/reflection";
 
-import { createLink, getLinks } from "./grpcFunctions";
-import { IAPIPort } from "../../ports/api";
-import { LinksService } from "yalsh_protos/links/links";
+import { createLink, getLinks } from "./grpcFunctions.js";
+import { IAPIPort } from "../../ports/api.js";
+import { LinksService } from "yalsh_protos/links/links.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
