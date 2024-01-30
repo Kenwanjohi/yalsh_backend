@@ -12,13 +12,13 @@ import {
   updateUser,
 } from "./grpcFunctions";
 import { IAPIPort } from "../../ports/api";
-import { AccountsService } from "yalsh_protos/dist/accounts/accounts";
+import { AccountsService } from "yalsh_protos/accounts/accounts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ProtoFilePath = path.join(
   __dirname,
-  "../../../node_modules/yalsh_protos/dist/accounts.proto"
+  "../../../node_modules/yalsh_protos/accounts.proto"
 );
 const packageDefinition = protoLoader.loadSync(ProtoFilePath);
 

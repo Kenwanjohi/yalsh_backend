@@ -25,6 +25,7 @@
     "@grpc/grpc-js": "^1.9.13",
     "fastify": "^4.0.0",
     "fastify-cli": "^6.0.1",
-    "fastify-plugin": "^4.0.0"
+    "fastify-plugin": "^4.0.0",
+    "yalsh_protos": "^1.0.0"
   }
 }

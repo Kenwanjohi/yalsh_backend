@@ -11,7 +11,7 @@ import {
   DeleteUserResponse,
   UpdateUserRequest,
   UpdateUserResponse,
-} from "yalsh_protos/dist/accounts/accounts";
+} from "yalsh_protos/accounts/accounts";
 import { IAPIPort } from "../../ports/api";
 import { userUpdate } from "../../application/entities/account";
 import { Errors } from "../../errors";

@@ -6,13 +6,13 @@ import { ReflectionService } from "@grpc/reflection";
 
 import { createLink, getLinks } from "./grpcFunctions";
 import { IAPIPort } from "../../ports/api";
-import { LinksService } from "yalsh_protos/dist/links/links";
+import { LinksService } from "yalsh_protos/links/links";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ProtoFilePath = path.join(
   __dirname,
-  "../../../node_modules/yalsh_protos/dist/links.proto"
+  "../../../node_modules/yalsh_protos/links.proto"
 );
 const packageDefinition = protoLoader.loadSync(ProtoFilePath);
 
