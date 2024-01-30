@@ -1,4 +1,0 @@
-{
-  "dev": { "ENV": "PG_CONN" },
-  "sql-file": true
-}

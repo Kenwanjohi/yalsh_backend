@@ -1,0 +1,17 @@
+{
+  "links": {
+    "driver": "pg",
+    "url": {
+      "ENV": "PG_CONN_LINKS"
+    },
+    "ssl": true
+  },
+  "accounts": {
+    "driver": "pg",
+    "url": {
+      "ENV": "PG_CONN_ACCOUNTS"
+    },
+    "ssl": true
+  },
+  "sql-file": true
+}

@@ -17,8 +17,6 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.11.0",
-    "db-migrate": "^0.11.14",
-    "db-migrate-pg": "^1.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
