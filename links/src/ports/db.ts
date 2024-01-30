@@ -1,4 +1,4 @@
-import { LinkItem } from "../application/entities/link";
+import { LinkItem } from "../application/entities/link.js";
 export type GetLinks = {
   link_id: number;
   url: string;

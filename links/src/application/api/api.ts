@@ -1,7 +1,7 @@
-import { Link } from "yalsh_protos/dist/links/links";
-import { IAPIPort } from "../../ports/api";
-import { IDatabasePort } from "../../ports/db";
-import { LinkItem } from "../entities/link";
+import { Link } from "yalsh_protos/links/links.js";
+import { IAPIPort } from "../../ports/api.js";
+import { IDatabasePort } from "../../ports/db.js";
+import { LinkItem } from "../entities/link.js";
 
 export class Application implements IAPIPort {
   dataSource: IDatabasePort;

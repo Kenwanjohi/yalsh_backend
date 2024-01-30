@@ -1,5 +1,5 @@
-import { Link } from "yalsh_protos/dist/links/links";
-import { LinkItem } from "../application/entities/link";
+import { Link } from "yalsh_protos/links/links";
+import { LinkItem } from "../application/entities/link.js";
 export interface IAPIPort {
   createLink(link: LinkItem): Promise<number>;
   getLinks(userId: number): Promise<Link[]>;

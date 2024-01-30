@@ -1,4 +1,4 @@
-import { CreateLinkRequest } from "yalsh_protos/dist/links/links";
+import { CreateLinkRequest } from "yalsh_protos/links/links.js";
 
 export type LinkItem = {
   url: string;
