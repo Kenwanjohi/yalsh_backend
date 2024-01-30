@@ -2,7 +2,6 @@ import postgres from "postgres";
 import { LinkItem } from "../../application/entities/link.js";
 import { GetLinks, IDatabasePort } from "../../ports/db.js";
 import "dotenv/config";
-
 export class LinkDataSource implements IDatabasePort {
   sql: postgres.Sql;
 
