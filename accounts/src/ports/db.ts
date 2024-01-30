@@ -1,4 +1,4 @@
-import { ProfileUser, User, UserUpdate } from "../application/entities/account";
+import { ProfileUser, User, UserUpdate } from "../application/entities/account.js";
 
 export interface IDatabasePort {
   getUserById(user_id: number): Promise<User>;

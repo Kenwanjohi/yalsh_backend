@@ -1,17 +1,20 @@
 import postgres from "postgres";
-import { IDatabasePort } from "../../ports/db";
+import { IDatabasePort } from "../../ports/db.js";
 import {
   User,
   ProfileUser,
   UserUpdate,
-} from "../../application/entities/account";
+} from "../../application/entities/account.js";
+import 'dotenv/config'
 
 export class AccountsDataSource implements IDatabasePort {
   sql: postgres.Sql;
 
   constructor() {
     try {
+      console.log(process.env.PG_CONN)
       this.sql = postgres(`${process.env.PG_CONN}`);
+      
     } catch (error) {
       throw error;
     }
@@ -63,12 +66,10 @@ export class AccountsDataSource implements IDatabasePort {
 
     const { user_id, new_password, ...rest } = user;
 
-    updatedUser = rest;
+    updatedUser = rest || {};
 
     const withValues: {
-      username?: string;
-      email?: string;
-      password?: string;
+      [key: string]: string | undefined;
     } = {};
 
     for (const key in updatedUser) {

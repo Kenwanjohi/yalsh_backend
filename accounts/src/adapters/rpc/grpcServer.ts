@@ -10,9 +10,9 @@ import {
   deleteUser,
   getUserProfile,
   updateUser,
-} from "./grpcFunctions";
-import { IAPIPort } from "../../ports/api";
-import { AccountsService } from "yalsh_protos/accounts/accounts";
+} from "./grpcFunctions.js";
+import { IAPIPort } from "../../ports/api.js";
+import { AccountsService } from "yalsh_protos/accounts/accounts.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

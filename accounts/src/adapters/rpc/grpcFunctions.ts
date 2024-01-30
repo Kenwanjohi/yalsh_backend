@@ -11,10 +11,10 @@ import {
   DeleteUserResponse,
   UpdateUserRequest,
   UpdateUserResponse,
-} from "yalsh_protos/accounts/accounts";
-import { IAPIPort } from "../../ports/api";
-import { userUpdate } from "../../application/entities/account";
-import { Errors } from "../../errors";
+} from "yalsh_protos/accounts/accounts.js";
+import { IAPIPort } from "../../ports/api.js";
+import { userUpdate } from "../../application/entities/account.js";
+import { Errors } from "../../errors.js";
 
 export const createUser = (app: IAPIPort) => {
   return async (

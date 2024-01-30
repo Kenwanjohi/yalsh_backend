@@ -1,4 +1,4 @@
-import { UpdateUserRequest } from "yalsh_protos/dist/accounts/accounts";
+import { UpdateUserRequest } from "yalsh_protos/accounts/accounts.js";
 
 export type User = {
   username: string;

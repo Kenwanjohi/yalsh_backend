@@ -1,10 +1,10 @@
-import { AuthUserRequest } from "yalsh_protos/dist/accounts/accounts";
-import { IAPIPort } from "../../ports/api";
-import { IDatabasePort } from "../../ports/db";
-import { hashPassword } from "../../utils";
-import { User, ProfileUser, UserUpdate } from "../entities/account";
+import { AuthUserRequest } from "yalsh_protos/accounts/accounts.js"
+import { IAPIPort } from "../../ports/api.js";
+import { IDatabasePort } from "../../ports/db.js";
+import { hashPassword } from "../../utils.js";
+import { User, ProfileUser, UserUpdate } from "../entities/account.js";
 import bcrypt from "bcrypt";
-import { Errors } from "../../errors";
+import { Errors } from "../../errors.js";
 export class Application implements IAPIPort {
   dataSource: IDatabasePort;
   constructor(dataSource: IDatabasePort) {

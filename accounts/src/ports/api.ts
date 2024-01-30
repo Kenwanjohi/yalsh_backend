@@ -1,5 +1,5 @@
-import { AuthUserRequest } from "yalsh_protos/dist/accounts/accounts";
-import { ProfileUser, User, UserUpdate } from "../application/entities/account";
+import { AuthUserRequest } from "yalsh_protos/accounts/accounts.js";
+import { ProfileUser, User, UserUpdate } from "../application/entities/account.js";
 
 export interface IAPIPort {
   createUser(user: User): Promise<ProfileUser>;
