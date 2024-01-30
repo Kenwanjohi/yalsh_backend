@@ -14,12 +14,15 @@ dependencies:
   '@grpc/reflection':
     specifier: ^1.0.1
     version: 1.0.1(@grpc/grpc-js@1.9.13)
+  dotenv:
+    specifier: ^16.4.1
+    version: 16.4.1
   postgres:
     specifier: ^3.4.3
     version: 3.4.3
   yalsh_protos:
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.0.5
+    version: 1.0.5
 
 devDependencies:
   '@types/node':
@@ -350,6 +353,11 @@ packages:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: false
 
+  /dotenv@16.4.1:
+    resolution: {integrity: sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: false
@@ -505,8 +513,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /yalsh_protos@1.0.0:
-    resolution: {integrity: sha512-g8xL9QaBxOu036RMvoWklngotPOOqlpR39xaLq6Ra+C3I1/lOjDlOmgUdJWJjkXBVQhLc4ejhRqzRAIylj3o8A==}
+  /yalsh_protos@1.0.5:
+    resolution: {integrity: sha512-GGeJVMmwzwVyzPbT0AEacsIJ9lGe4Y4RbRD7XzjDCRTwiF9yHKxTrU0SBu76JwYmut0fhp7cLy/g8/j+GTOG7A==}
     dependencies:
       '@grpc/grpc-js': 1.9.13
       long: 5.2.3
