@@ -18,7 +18,9 @@ module.exports = fp(async function (fastify, opts) {
     const accountsPackageDefinition = protoLoader.loadSync(
       AccountsProtoFilePath
     );
-    const linksPackageDefinition = protoLoader.loadSync(LinksProtoFilePath, {defaults: true});
+    const linksPackageDefinition = protoLoader.loadSync(LinksProtoFilePath, {
+      defaults: true,
+    });
 
     const { Accounts: AccountsClient } = grpc.loadPackageDefinition(
       accountsPackageDefinition
@@ -29,12 +31,12 @@ module.exports = fp(async function (fastify, opts) {
     ).linksPackage;
 
     const accountsClient = new AccountsClient(
-      "localhost:50052",
+      process.env.ACCOUNTS_SERVICE_URL,
       grpc.credentials.createInsecure()
     );
 
     const linksClient = new LinksClient(
-      "localhost:50051",
+      process.env.LINKS_SERVICE_URL,
       grpc.credentials.createInsecure()
     );
 

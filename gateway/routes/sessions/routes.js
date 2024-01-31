@@ -36,9 +36,8 @@ module.exports = fp(
 
           reply
             .setCookie("accessToken", accessToken, {
-              domain: "localhost",
               path: "/",
-              secure: false,
+              secure: true,
               httpOnly: true,
               expires: expirationDate,
               sameSite: "Strict",
