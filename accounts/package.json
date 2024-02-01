@@ -30,6 +30,6 @@
     "dotenv": "^16.4.1",
     "postgres": "^3.4.3",
     "tsx": "^4.7.0",
-    "yalsh_protos": "^1.0.0"
+    "yalsh_protos": "^1.0.6"
   }
 }
