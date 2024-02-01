@@ -30,9 +30,9 @@ module.exports = fp(
           }
           const { userId, username } = res;
           request.user = { id: userId, username };
-          const accessToken = await request.createToken({ expiresIn: "1d" });
+          const accessToken = await request.createToken({ expiresIn: "14d" });
           const expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 1);
+          expirationDate.setDate(expirationDate.getDate() + 14);
 
           reply
             .setCookie("accessToken", accessToken, {
