@@ -27,6 +27,6 @@
     "@grpc/reflection": "^1.0.1",
     "dotenv": "^16.4.1",
     "postgres": "^3.4.3",
-    "yalsh_protos": "^1.0.5"
+    "yalsh_protos": "^1.0.6"
   }
 }

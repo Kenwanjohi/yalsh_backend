@@ -26,4 +26,15 @@ export class LinkDataSource implements IDatabasePort {
     >`SELECT link_id, url, key, clicks, expires_at FROM links WHERE user_id=${userId}`;
     return links;
   }
+  async getLinkByKey(key: string): Promise<string> {
+    try {
+      const url = await this.sql`SELECT url, key, link_id FROM links WHERE key=${key}`;
+      if (url[0].url) {
+        return url[0].url;
+      }
+      throw new Error("Not found");
+    } catch (error) {
+      throw error;
+    }
+  }
 }

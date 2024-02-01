@@ -24,4 +24,12 @@ export class Application implements IAPIPort {
     });
     return mappedLinks;
   }
+
+  async linkLookup(key: string): Promise<string> {
+    try {
+      return await this.dataSource.getLinkByKey(key);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

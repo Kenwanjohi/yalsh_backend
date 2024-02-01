@@ -8,4 +8,5 @@ export type GetLinks = {
 export interface IDatabasePort {
   saveLink(link: LinkItem): Promise<number>;
   getLinks(userId: number): Promise<GetLinks[]>;
+  getLinkByKey(key: string): Promise<string>;
 }

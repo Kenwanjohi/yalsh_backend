@@ -4,7 +4,7 @@ import { Server, ServerCredentials } from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 import { ReflectionService } from "@grpc/reflection";
 
-import { createLink, getLinks } from "./grpcFunctions.js";
+import { createLink, getLinks, linkLookup } from "./grpcFunctions.js";
 import { IAPIPort } from "../../ports/api.js";
 import { LinksService } from "yalsh_protos/links/links.js";
 
@@ -32,6 +32,7 @@ export class GrpcServer {
     server.addService(LinksService, {
       createLink: createLink(this.app),
       getLinks: getLinks(this.app),
+      linkLookup: linkLookup(this.app)
     });
     server.bindAsync(
       this.address,

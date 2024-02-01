@@ -21,8 +21,8 @@ dependencies:
     specifier: ^3.4.3
     version: 3.4.3
   yalsh_protos:
-    specifier: ^1.0.5
-    version: 1.0.5
+    specifier: ^1.0.6
+    version: 1.0.6
 
 devDependencies:
   '@types/node':
@@ -513,8 +513,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /yalsh_protos@1.0.5:
-    resolution: {integrity: sha512-GGeJVMmwzwVyzPbT0AEacsIJ9lGe4Y4RbRD7XzjDCRTwiF9yHKxTrU0SBu76JwYmut0fhp7cLy/g8/j+GTOG7A==}
+  /yalsh_protos@1.0.6:
+    resolution: {integrity: sha512-enkIYHnqQ8xBlBDrVdkAvAU6fEmUUzzWjpape2SOg610+gj8RKStDL0o1GuaxlPNddeAQwmhcylpVkfbhVTCow==}
     dependencies:
       '@grpc/grpc-js': 1.9.13
       long: 5.2.3

@@ -5,6 +5,8 @@ import {
   CreateLinkResponse,
   GetLinksRequest,
   GetLinksResponse,
+  LinkLookupRequest,
+  LinkLookupResponse,
 } from "yalsh_protos/links/links.js";
 import { IAPIPort } from "../../ports/api.js";
 import { newLink } from "../../application/entities/link.js";
@@ -28,6 +30,23 @@ export const getLinks = (app: IAPIPort) => {
     try {
       const links = await app.getLinks(call.request.userId);
       callback(null, { links });
+    } catch (error) {
+      callback({
+        code: status.UNKNOWN,
+        details: "Unexpected error occurred",
+      });
+    }
+  };
+};
+
+export const linkLookup = (app: IAPIPort) => {
+  return async (
+    call: ServerUnaryCall<LinkLookupRequest, LinkLookupResponse>,
+    callback: sendUnaryData<LinkLookupResponse>
+  ) => {
+    try {
+      const url = await app.linkLookup(call.request.key);
+      callback(null, { url });
     } catch (error) {
       callback({
         code: status.UNKNOWN,
