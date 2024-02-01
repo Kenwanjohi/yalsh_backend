@@ -1,0 +1,11 @@
+{
+  email example@gmail.com
+}
+
+api.yalsh.co {
+  reverse_proxy gateway:3001
+}
+
+yalsh.co {
+  reverse_proxy gateway:3001
+}
