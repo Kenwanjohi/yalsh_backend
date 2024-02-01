@@ -26,6 +26,8 @@ module.exports = fp(
           { userId: request.user.id, ...request.body },
           (err, res) => {
             if (err) {
+              fastify.log.error(err);
+              reply.internalServerError();
             } else {
               console.log(res);
               reply.send(200);
@@ -41,8 +43,28 @@ module.exports = fp(
         client.getLinks({ userId: request.user.id }, (err, res) => {
           if (err) {
             fastify.log.error(err);
+            reply.internalServerError();
           } else {
             reply.status(200).send(res);
+          }
+        });
+      }
+    );
+
+    fastify.get(
+      "/:key",
+      { constraints: { host: process.env.LINKS_DOMAIN } },
+      function Lookup(request, reply) {
+        client.linkLookup({ key: request.params.key }, (err, res) => {
+          if (err) {
+            fastify.log.error(err);
+            reply.redirect(process.env.REDIRECT_URL);
+          } else {
+            if (res.url) {
+              reply.redirect(res.url);
+            } else {
+              reply.redirect(process.env.REDIRECT_URL);
+            }
           }
         });
       }

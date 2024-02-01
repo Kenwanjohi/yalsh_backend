@@ -26,6 +26,9 @@ dependencies:
   '@grpc/grpc-js':
     specifier: ^1.9.13
     version: 1.9.13
+  '@grpc/proto-loader':
+    specifier: ^0.7.10
+    version: 0.7.10
   fastify:
     specifier: ^4.0.0
     version: 4.0.0
@@ -36,8 +39,8 @@ dependencies:
     specifier: ^4.0.0
     version: 4.0.0
   yalsh_protos:
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.0.6
+    version: 1.0.6
 
 packages:
 
@@ -1289,8 +1292,8 @@ packages:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: false
 
-  /yalsh_protos@1.0.0:
-    resolution: {integrity: sha512-g8xL9QaBxOu036RMvoWklngotPOOqlpR39xaLq6Ra+C3I1/lOjDlOmgUdJWJjkXBVQhLc4ejhRqzRAIylj3o8A==}
+  /yalsh_protos@1.0.6:
+    resolution: {integrity: sha512-enkIYHnqQ8xBlBDrVdkAvAU6fEmUUzzWjpape2SOg610+gj8RKStDL0o1GuaxlPNddeAQwmhcylpVkfbhVTCow==}
     dependencies:
       '@grpc/grpc-js': 1.9.13
       long: 5.2.3
