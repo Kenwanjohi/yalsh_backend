@@ -24,11 +24,26 @@ module.exports = async function (fastify, opts) {
   });
 
   fastify.register(proxy, {
-    upstream: "http://127.0.0.1:3000",
-    prefix: "/api",
+    upstream: "http://127.0.0.1:3002",
+    prefix: "/api/accounts",
+    rewritePrefix: "/accounts",
     preHandler: async function (request, reply) {
       await fastify.authenticate(request, reply);
+      request.headers["x-user-id"] = String(request.user.id);
     },
+  });
+  fastify.register(proxy, {
+    upstream: "http://127.0.0.1:3000",
+    prefix: "/links",
+    rewritePrefix: "/links",
+    preHandler: async function (request, reply) {
+      await fastify.authenticate(request, reply);
+      request.headers["x-user-id"] = String(request.user.id);
+    },
+  });
+  fastify.register(proxy, {
+    upstream: "http://127.0.0.1:3000",
+    prefix: "/",
   });
 };
 

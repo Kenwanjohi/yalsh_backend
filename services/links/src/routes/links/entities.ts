@@ -1,4 +1,4 @@
-import { CreateLinkRequest } from "yalsh_protos/links/links.js";
+import { CreateLinkRequest } from "./hooks";
 
 export type LinkItem = {
   url: string;
@@ -18,3 +18,5 @@ export function newLink(link: CreateLinkRequest): LinkItem {
     password: password || null,
   };
 }
+
+export const autoload = false;
