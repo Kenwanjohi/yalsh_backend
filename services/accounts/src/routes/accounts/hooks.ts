@@ -16,6 +16,7 @@ export type UpdateUserRequest = {
   email?: string;
   password?: string;
 };
+
 export default fp(async function accountsAutoHooks(fastify, options) {
   const { sql } = fastify;
 
@@ -33,6 +34,12 @@ export default fp(async function accountsAutoHooks(fastify, options) {
       const user = await sql<
         { username: string; email: string; password: string }[]
       >`SELECT username, email, password FROM users WHERE user_id=${userId}`;
+      return user[0];
+    },
+    async getUserByEmail(email: string) {
+      const user = await sql<
+        { userId: number; username: string; email: string; password: string }[]
+      >`SELECT user_id, username, email, password FROM users WHERE email=${email}`;
       return user[0];
     },
 
@@ -72,6 +79,12 @@ declare module "fastify" {
       getUserById(
         userId: number
       ): Promise<{ username: string; email: string; password: string }>;
+      getUserByEmail(email: string): Promise<{
+        userId: number;
+        username: string;
+        email: string;
+        password: string;
+      }>;
       updateUser(
         userId: number,
         updateUserProps: UpdateUserRequest
